@@ -9,10 +9,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="en">
         <body>
           <Header />
-          <div className="flex">
-            <Sidebar />
-            <main className="flex-1">{children}</main>
-          </div>
+          <Sidebar />
+          <main className="ml-[50px] min-h-[calc(100vh-64px)] bg-gray-100 p-4 md:ml-[167px]">
+            {children}
+          </main>
         </body>
       </html>
     </ClerkProvider>

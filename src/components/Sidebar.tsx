@@ -76,7 +76,7 @@ const Sidebar = () => {
   }, [data]);
 
   return (
-    <div className="fixed h-full bg-gray-200 p-3 md:p-5">
+    <div className="fixed top-16 flex h-full w-[50px] justify-center bg-gray-200 py-3 md:w-[167px] md:py-5">
       <div className="md:hidden">
         <Sheet>
           <SheetTrigger>

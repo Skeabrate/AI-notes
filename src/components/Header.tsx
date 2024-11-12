@@ -6,7 +6,7 @@ const Header = () => {
   const { user } = useUser();
 
   return (
-    <header className="flex items-center justify-between p-4">
+    <header className="flex h-16 items-center justify-between p-4">
       {user && <h1 className="text-xl">{user.fullName + "'s"} space</h1>}
       <SignedOut>
         <SignInButton />
