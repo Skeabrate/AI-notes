@@ -17,7 +17,7 @@ const Document: React.FC<DocumentProps> = ({ id }) => {
   const handleChangeTitle = (e: FormEvent) => {
     e.preventDefault();
 
-    if (input.trim()) return;
+    if (!input.trim()) return;
 
     startTransition(async () => {
       await updateDoc(doc(db, "documents", id), {
@@ -27,18 +27,17 @@ const Document: React.FC<DocumentProps> = ({ id }) => {
   };
 
   useEffect(() => {
-    if (data) {
-      setInput(data.title);
-    }
-  }, []);
+    if (!data) return;
+    setInput(data.title);
+  }, [data]);
 
   return (
-    <div>
-      <form onSubmit={handleChangeTitle}>
+    <div className="mx-auto max-w-6xl">
+      <form onSubmit={handleChangeTitle} className="flex gap-3">
         <Input value={input} onChange={(e) => setInput(e.target.value)} />
-        {/* <Button disabled={isPending}>
+        <Button type="submit" disabled={isPending}>
           {isPending ? "Updating..." : "Update"}
-        </Button> */}
+        </Button>
       </form>
     </div>
   );

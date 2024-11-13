@@ -7,6 +7,7 @@ import {
   UserButton,
   useUser,
 } from "@clerk/nextjs";
+import Breadcrumbs from "./Breadcrumbs";
 
 const Header = () => {
   const { user } = useUser();
@@ -14,12 +15,18 @@ const Header = () => {
   return (
     <header className="flex h-16 items-center justify-between p-4">
       {user && <h1 className="text-xl">{user.fullName + "'s"} space</h1>}
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
+
+      <Breadcrumbs />
+
+      <div>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </div>
     </header>
   );
 };

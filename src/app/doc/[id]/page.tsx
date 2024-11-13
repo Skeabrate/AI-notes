@@ -1,19 +1,17 @@
 "use client";
 
+import { use } from "react";
 import Document from "@/components/Document";
 
 type DocumentPageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 const DocumentPage: React.FC<DocumentPageProps> = ({ params }) => {
-  return (
-    <div className="">
-      <Document id={params.id} />
-    </div>
-  );
+  const { id } = use(params);
+  return <Document id={id} />;
 };
 
 export default DocumentPage;

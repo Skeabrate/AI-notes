@@ -1,15 +1,5 @@
 "use client";
 
-import { useCollection } from "react-firebase-hooks/firestore";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { MenuIcon } from "lucide-react";
-import NewDocumentButton from "./NewDocumentButton";
 import { useUser } from "@clerk/nextjs";
 import {
   collectionGroup,
@@ -17,9 +7,19 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { db } from "@/lib/firebaseClient";
+import { MenuIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useCollection } from "react-firebase-hooks/firestore";
+import NewDocumentButton from "./NewDocumentButton";
 import SidebarOption from "./SidebarOption";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { db } from "@/lib/firebaseClient";
 
 interface RoomDocument extends DocumentData {
   createdAt: string;
@@ -48,7 +48,9 @@ const Sidebar = () => {
       <NewDocumentButton />
 
       <div className="flex flex-col space-y-4 py-4 md:max-w-36">
-        {!groupedData.owner.length ? (
+        {loading ? (
+          <p>Loading...</p>
+        ) : !groupedData.owner.length ? (
           <h2 className="text-sm font-semibold text-gray-500">
             No documents found
           </h2>
@@ -76,7 +78,6 @@ const Sidebar = () => {
       (acc, curr) => {
         const roomData = curr.data() as RoomDocument;
         if (roomData.role === "owner") {
-          console.log(roomData);
           acc.owner.push({
             id: curr.id,
             ...roomData,
