@@ -1,17 +1,27 @@
 "use client";
 
 import { useCollection } from "react-firebase-hooks/firestore";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
 import NewDocumentButton from "./NewDocumentButton";
 import { useUser } from "@clerk/nextjs";
-import { collectionGroup, DocumentData, query, where } from "firebase/firestore";
+import {
+  collectionGroup,
+  DocumentData,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "@/lib/firebaseClient";
 import { useEffect, useState } from "react";
 import SidebarOption from "./SidebarOption";
 
 interface RoomDocument extends DocumentData {
-  id: string;
   createdAt: string;
   role: "owner" | "editor";
   roomId: string;
@@ -20,13 +30,17 @@ interface RoomDocument extends DocumentData {
 
 const Sidebar = () => {
   const { user } = useUser();
-  const [groupedData, setGroupedData] = useState<{ owner: RoomDocument[]; editor: RoomDocument[] }>(
-    { owner: [], editor: [] },
-  );
+  const [groupedData, setGroupedData] = useState<{
+    owner: RoomDocument[];
+    editor: RoomDocument[];
+  }>({ owner: [], editor: [] });
 
   const [data, loading, error] = useCollection(
     user &&
-      query(collectionGroup(db, "rooms"), where("userId", "==", user.emailAddresses[0].toString())),
+      query(
+        collectionGroup(db, "rooms"),
+        where("userId", "==", user.emailAddresses[0].toString()),
+      ),
   );
 
   const menuOptions = (
@@ -35,10 +49,14 @@ const Sidebar = () => {
 
       <div className="flex flex-col space-y-4 py-4 md:max-w-36">
         {!groupedData.owner.length ? (
-          <h2 className="text-sm font-semibold text-gray-500">No documents found</h2>
+          <h2 className="text-sm font-semibold text-gray-500">
+            No documents found
+          </h2>
         ) : (
           <>
-            <h2 className="text-sm font-semibold text-gray-500">My Documents</h2>
+            <h2 className="text-sm font-semibold text-gray-500">
+              My Documents
+            </h2>
             {groupedData.owner.map(({ id }) => (
               <SidebarOption key={id} id={id} href={`/doc/${id}`} />
             ))}
@@ -51,11 +69,14 @@ const Sidebar = () => {
   useEffect(() => {
     if (!data) return;
 
-    const grouped = data.docs.reduce<{ owner: RoomDocument[]; editor: RoomDocument[] }>(
+    const grouped = data.docs.reduce<{
+      owner: RoomDocument[];
+      editor: RoomDocument[];
+    }>(
       (acc, curr) => {
         const roomData = curr.data() as RoomDocument;
-        console.log(roomData);
         if (roomData.role === "owner") {
+          console.log(roomData);
           acc.owner.push({
             id: curr.id,
             ...roomData,
