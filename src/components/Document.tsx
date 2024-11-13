@@ -1,9 +1,9 @@
-import { Input } from "@/components/ui/input";
-import { db } from "@/lib/firebaseClient";
 import { doc, updateDoc } from "firebase/firestore";
 import { FormEvent, useEffect, useState, useTransition } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { Button } from "./ui/button";
+import { Input } from "@/components/ui/input";
+import { db } from "@/lib/firebaseClient";
 
 type DocumentProps = {
   id: string;

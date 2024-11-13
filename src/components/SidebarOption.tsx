@@ -1,10 +1,10 @@
-import { db } from "@/lib/firebaseClient";
 import clsx from "clsx";
 import { doc } from "firebase/firestore";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import { db } from "@/lib/firebaseClient";
 
 type SidebarOptionProps = {
   href: string;
