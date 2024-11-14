@@ -57,7 +57,7 @@ type OthersProps = {
 };
 
 const Others: React.FC<OthersProps> = ({ children }) => {
-  const [myPresence, updateMyPresence] = useMyPresence();
+  const [_, updateMyPresence] = useMyPresence();
   const others = useOthers();
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
@@ -71,7 +71,11 @@ const Others: React.FC<OthersProps> = ({ children }) => {
   };
 
   return (
-    <div onPointerMove={handlePointerMove} onPointerLeave={handlePointerLeave}>
+    <div
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      className="h-full w-full"
+    >
       {others
         .filter((other) => other.presence.cursor !== null)
         .map(({ connectionId, presence, info }) => (

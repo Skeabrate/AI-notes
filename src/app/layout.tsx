@@ -13,10 +13,10 @@ export default function RootLayout({
       <html lang="en">
         <body>
           <Header />
-          <Sidebar />
-          <main className="ml-[50px] min-h-[calc(100vh-64px)] bg-gray-100 p-4 md:ml-[167px]">
-            {children}
-          </main>
+          <div className="flex h-[calc(100vh-64px)] overflow-y-auto">
+            <Sidebar />
+            <main className="flex-1 bg-gray-100 p-4">{children}</main>
+          </div>
         </body>
       </html>
     </ClerkProvider>
