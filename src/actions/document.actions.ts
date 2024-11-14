@@ -31,3 +31,9 @@ export async function createDocument() {
 
   return { docId: docRef.id };
 }
+
+export async function deleteDocument(roomId: string) {
+  auth.protect();
+
+  console.log("deleting:", roomId);
+}

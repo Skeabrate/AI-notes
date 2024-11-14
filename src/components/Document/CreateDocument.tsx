@@ -2,22 +2,16 @@
 
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { createDocument } from "@/actions/document.actions";
 
-const NewDocumentButton = () => {
+const CreateDocument = () => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   const handleCreateDocument = () => {
     startTransition(async () => {
       const res = await createDocument();
-
-      if (!res) {
-        // toast error
-        return;
-      }
-
       router.push(`/doc/${res.docId}`);
     });
   };
@@ -29,4 +23,4 @@ const NewDocumentButton = () => {
   );
 };
 
-export default NewDocumentButton;
+export default CreateDocument;

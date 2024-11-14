@@ -10,7 +10,7 @@ import {
 import { MenuIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
-import NewDocumentButton from "./NewDocumentButton";
+import CreateDocument from "./Document/CreateDocument";
 import SidebarOption from "./SidebarOption";
 import {
   Sheet,
@@ -45,7 +45,7 @@ const Sidebar = () => {
 
   const menuOptions = (
     <>
-      <NewDocumentButton />
+      <CreateDocument />
 
       <div className="flex flex-col space-y-4 py-4 md:max-w-36">
         {loading ? (

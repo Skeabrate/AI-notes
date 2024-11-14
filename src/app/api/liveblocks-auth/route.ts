@@ -8,7 +8,6 @@ export async function POST(req: NextRequest) {
 
   const { sessionClaims } = await auth();
   const { room } = await req.json();
-  console.log(sessionClaims, room);
   const { email = "", fullName = "", image = "" } = sessionClaims || {};
 
   const session = liveblocks.prepareSession(email, {

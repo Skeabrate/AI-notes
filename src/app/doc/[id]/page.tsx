@@ -1,7 +1,7 @@
 "use client";
 
 import { use } from "react";
-import Document from "@/components/Document";
+import Document from "@/components/Document/Document";
 
 type DocumentPageProps = {
   params: Promise<{

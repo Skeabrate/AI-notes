@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
-import LiveBlocksWrapper from "@/components/doc/LiveBlocksWrapper";
+import LiveBlocksWrapper from "@/components/Document/LiveBlocksWrapper";
 
 type PageLayoutProps = {
   children: React.ReactNode;

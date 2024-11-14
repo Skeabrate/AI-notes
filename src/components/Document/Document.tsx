@@ -1,8 +1,11 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { FormEvent, useEffect, useState, useTransition } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import { Button } from "./ui/button";
+import DeleteDocument from "./DeleteDocument";
+import Editor from "../Editor/Editor";
+import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input";
+import { useOwner } from "@/hooks/useOwner";
 import { db } from "@/lib/firebaseClient";
 
 type DocumentProps = {
@@ -13,6 +16,7 @@ const Document: React.FC<DocumentProps> = ({ id }) => {
   const [data, loading, error] = useDocumentData(doc(db, "documents", id));
   const [input, setInput] = useState("");
   const [isPending, startTransition] = useTransition();
+  const { isOwner } = useOwner();
 
   const handleChangeTitle = (e: FormEvent) => {
     e.preventDefault();
@@ -38,7 +42,23 @@ const Document: React.FC<DocumentProps> = ({ id }) => {
         <Button type="submit" disabled={isPending}>
           {isPending ? "Updating..." : "Update"}
         </Button>
+
+        {isOwner && (
+          <>
+            <DeleteDocument />
+          </>
+        )}
       </form>
+
+      <div>
+        {/* ManageUsers */}
+
+        {/* Avatars */}
+      </div>
+
+      <hr className="mt-6 pb-10" />
+
+      <Editor />
     </div>
   );
 };
