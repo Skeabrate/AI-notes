@@ -1,6 +1,7 @@
 import { useRoom } from "@liveblocks/react";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { deleteDocument } from "@/actions/document.actions";
 import {
@@ -16,19 +17,26 @@ import {
 } from "@/components/ui/alert-dialog";
 
 const DeleteDocument = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const { id } = useRoom();
   const router = useRouter();
 
   const handleDelete = () => {
     startTransition(async () => {
-      await deleteDocument(id);
-      router.push("/");
+      const { success } = await deleteDocument(id);
+
+      if (success) {
+        toast.success("Room deleted successfully");
+        router.push("/");
+      } else {
+        toast.error("Failed to delete document");
+      }
     });
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <Button asChild variant="destructive">
         <AlertDialogTrigger>Delete</AlertDialogTrigger>
       </Button>
@@ -42,9 +50,9 @@ const DeleteDocument = () => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete} disabled={isPending}>
+          <Button onClick={handleDelete} disabled={isPending}>
             {isPending ? "Deleting..." : "Delete"}
-          </AlertDialogAction>
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

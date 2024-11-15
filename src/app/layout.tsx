@@ -1,6 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 export default function RootLayout({
@@ -17,6 +18,8 @@ export default function RootLayout({
             <Sidebar />
             <main className="flex-1 p-4">{children}</main>
           </div>
+
+          <Toaster position="top-center" />
         </body>
       </html>
     </ClerkProvider>
